@@ -1,5 +1,6 @@
 # CS 4620 Final Project ReadMe
 Project: CO2 Emissions Visualization
+<br>
 Name: Leonardo Guagenti
 
 ## Installation and Execution
