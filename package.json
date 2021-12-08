@@ -1,0 +1,18 @@
+{
+  "name": "cs4620-final-project",
+  "version": "1.0.0",
+  "description": "data visualization of global co2 emissions on a country-to-country basis",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./index.js",
+    "start": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leonardo Guagenti",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.15",
+    "sqlite3": "^5.0.2"
+  }
+}

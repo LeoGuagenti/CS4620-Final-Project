@@ -1,0 +1,189 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  </head>
+  <body style="overflow-x: hidden;">
+    <div class="row justify-content-center align-items-center" id="navigation" style="background-color: black; padding: 15px;">
+      <input type="text" id="country_name_select" name="name" value="World" placeholder="Country Name" class="mx-1" />
+      <select class="form-select" aria-label="Default select example" id="data_type_select">
+        <option value="0">CO₂ Emissions (tons)</option>
+        <option value="1">CO₂ Total Emissions (tons)</option>
+        <option value="2">CO₂ Emissions Per Capita (tons)</option>
+        <option value="3">Population</option>
+      </select>
+      <select id="year_select" name="year" class="mx-1">
+        <option value="1949">1949</option>
+        <option value="1950">1950</option>
+        <option value="1951">1951</option>
+        <option value="1952">1952</option>
+        <option value="1953">1953</option>
+        <option value="1954">1954</option>
+        <option value="1955">1955</option>
+        <option value="1956">1956</option>
+        <option value="1957">1957</option>
+        <option value="1958">1958</option>
+        <option value="1959">1959</option>
+        <option value="1960">1960</option>
+        <option value="1961">1961</option>
+        <option value="1962">1962</option>
+        <option value="1963">1963</option>
+        <option value="1964">1964</option>
+        <option value="1965">1965</option>
+        <option value="1966">1966</option>
+        <option value="1967">1967</option>
+        <option value="1968">1968</option>
+        <option value="1969">1969</option>
+        <option value="1970">1970</option>
+        <option value="1971">1971</option>
+        <option value="1972">1972</option>
+        <option value="1973">1973</option>
+        <option value="1974">1974</option>
+        <option value="1975">1975</option>
+        <option value="1976">1976</option>
+        <option value="1977">1977</option>
+        <option value="1978">1978</option>
+        <option value="1979">1979</option>
+        <option value="1980">1980</option>
+        <option value="1981">1981</option>
+        <option value="1982">1982</option>
+        <option value="1983">1983</option>
+        <option value="1984">1984</option>
+        <option value="1985">1985</option>
+        <option value="1986">1986</option>
+        <option value="1987">1987</option>
+        <option value="1988">1988</option>
+        <option value="1989">1989</option>
+        <option value="1990">1990</option>
+        <option value="1991">1991</option>
+        <option value="1992">1992</option>
+        <option value="1993">1993</option>
+        <option value="1994">1994</option>
+        <option value="1995">1995</option>
+        <option value="1996">1996</option>
+        <option value="1997">1997</option>
+        <option value="1998">1998</option>
+        <option value="1999">1999</option>
+        <option value="2000">2000</option>
+        <option value="2001">2001</option>
+        <option value="2002">2002</option>
+        <option value="2003">2003</option>
+        <option value="2004">2004</option>
+        <option value="2005">2005</option>
+        <option value="2006">2006</option>
+        <option value="2007">2007</option>
+        <option value="2008">2008</option>
+        <option value="2009">2009</option>
+        <option value="2010">2010</option>
+        <option value="2011">2011</option>
+        <option value="2012">2012</option>
+        <option value="2013">2013</option>
+        <option value="2014">2014</option>
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+      </select>
+      <button type="button" class="btn btn-primary" onclick="onSubmit()">Submit</button>
+    </div>
+    
+    <div class="container column justify-content-center">
+      <div class="container row justify-content-center">
+        <h2 class="display-4" id="title" style="text-align: center;">World CO₂ Data</h2>
+      </div>
+  
+      <div class="container column justify-content-center" id="data-v-container">
+        <div id="regions_div" style="width: 85%; height: auto;"></div>
+        <canvas id="pie-chart" style="width: 70%; height: auto;"></canvas>
+      </div>
+    </div>
+    
+    <script type="text/javascript">
+      var types = ["CO₂ Emissions", "CO₂ Total Emissions", "CO₂ Emissions Per Capita", "population"];
+
+      //make post request to given url providing given data
+      window.post = async function(url, data) { return await fetch(url, {method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)}); }
+
+      //load in resources and draw initial map / chart
+      google.charts.load('current', { 'packages':['geochart'], });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+      drawPieChart([]);
+
+      //draws the world map with given querydata, initialy empty
+      function drawRegionsMap(queryData=[['Country']]) {
+        var data = google.visualization.arrayToDataTable(queryData);
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        chart.draw(data, {colorAxis: {colors: ['#F5F5F5', '#8b0000']}});
+      }
+
+      //draws pie chart with top 10 entries (high to low), initialy empty
+      // rawdata[[label, data], ...]
+      function drawPieChart(rawData=[]){
+        var label_names = [];
+        var data = [];
+
+        if(rawData.length > 0){
+          rawData.sort((a, b) => b[1] - a[1]) //short by data
+          for(var i = 1; i < Math.min(11, rawData.length); i++){
+            label_names.push(rawData[i][0])
+            data.push(rawData[i][1])
+          }
+        }
+        
+        //remove and re-add canvas chart dom element
+        var element = document.getElementById("pie-chart");
+        element.remove();
+        var canvas = document.createElement("canvas");
+        canvas.id = "pie-chart"
+        canvas.style = "height: auto; width: 70%;"
+        var element = document.getElementById("data-v-container");
+        element.appendChild(canvas);
+
+        //create pie chart
+        new Chart(document.getElementById("pie-chart"), {
+            type: 'pie',
+            data: {
+              labels: label_names,
+              datasets: [{
+                label: "Population (millions)",
+                backgroundColor: ["#5673a9", "#c62714", "#9d3ff1", "#2ac6c3", "#048e2f", "#6f7ff7", "#c5b447", "#635335", "#4f14e3", "#67acea"],
+                data: data
+              }]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Top 10 Countries'
+              },
+              tooltips: { enabled: true }
+            }
+        });
+      }
+
+      async function onSubmit(){
+        //collect input values
+        var data_type = document.getElementById('data_type_select').value;
+        var year = document.getElementById('year_select').value;
+        var country_names = document.getElementById('country_name_select').value.trim();
+
+        country_names == "" ? country_names = ["World"] : country_names = country_names.split(';')
+
+        //send data to backend, get response of sqlite3 query result
+        res = await post("/", { country_names: country_names, data_type: data_type, year: year })
+        data = await res.json()
+
+        if(res){
+          //set title and draw new map
+          document.getElementById('title').innerHTML = country_names + " " + types[data_type] + " in " + year;
+          drawRegionsMap(data.data)
+          drawPieChart(data.data)
+        }
+      }
+    </script>
+  </body>
+</html>
