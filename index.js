@@ -78,6 +78,24 @@ async function countryQuery(title, countries, attribute, year, res){
     })
 }
 
+function isoQuery(res){
+    var data = [['Country', 'iso_code']]
+
+    var queryExec = new Promise(async (resolve, reject) => {
+        db.all(`select * from country_names`, (err, result) => {
+            if(err){ throw err }
+            result.forEach((value, index, array) => {
+                data.push([value.country_name, value.iso_code]);
+                if (index === array.length-1) resolve();
+            });
+        })
+    })
+    queryExec.then(() => {
+        //send data back to client
+        res.send({ data: data })
+    })
+}
+
 //on connection load main page
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: __dirname });
@@ -113,6 +131,9 @@ app.post('/', (req, res) => {
                     worldQuery("Population", "population", year, res) :
                     countryQuery("Population", countries, "population", year, res)
                     break;
+            case 4:
+                isoQuery(res)
+                break;
             default:
                 console.log('Error: Data type does not exist')
         }

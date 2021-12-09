@@ -15,6 +15,7 @@
         <option value="1">CO₂ Total Emissions (tons)</option>
         <option value="2">CO₂ Emissions Per Capita (tons)</option>
         <option value="3">Population</option>
+        <option value="4">ISO Codes</option>
       </select>
       <select id="year_select" name="year" class="mx-1">
         <option value="1949">1949</option>
@@ -104,7 +105,7 @@
     </div>
     
     <script type="text/javascript">
-      var types = ["CO₂ Emissions", "CO₂ Total Emissions", "CO₂ Emissions Per Capita", "population"];
+      var types = ["CO₂ Emissions", "CO₂ Total Emissions", "CO₂ Emissions Per Capita", "population", "ISO codes"];
 
       //make post request to given url providing given data
       window.post = async function(url, data) { return await fetch(url, {method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)}); }
